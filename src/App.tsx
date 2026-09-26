@@ -127,7 +127,7 @@ function App() {
             </div>
             <div className="portrait-placeholder">
               <img
-                src="/Hyzam.jpeg"
+                src="/hyzam-nazar-portfolio/Hyzam.jpeg"
                 alt="Hyzam Nazar"
                 className="portrait-image"
               />
