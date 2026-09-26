@@ -98,7 +98,7 @@ function App() {
           <button className="icon-btn" aria-label="Toggle theme" onClick={() => setDark(!dark)}>
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <a className="resume-btn" href="#contact">Resume ↗</a>
+          <a className="resume-btn" href="/hyzam-nazar-portfolio/Hyzam-Nazar-Resume.pdf" target="_blank" rel="noreferrer">Resume ↗</a>
           <button className="menu-btn" aria-label="Toggle menu" onClick={() => setMenu(!menu)}>
             {menu ? <X /> : <Menu />}
           </button>
@@ -394,6 +394,8 @@ function App() {
             <a href="mailto:hyzamnazar2013@gmail.com" className="contact-btn">Email <Mail size={18} /></a>
             <a href="https://github.com/Typoss" className="contact-btn" target="_blank" rel="noreferrer">GitHub <Github size={18} /></a>
             <a href="https://www.linkedin.com/in/hyzamnazar" className="contact-btn" target="_blank" rel="noreferrer">LinkedIn <Linkedin size={18} /></a>
+            <a href="/hyzam-nazar-portfolio/Hyzam-Nazar-Resume.pdf" className="contact-btn" target="_blank" rel="noreferrer">View Resume <ExternalLink size={18} /></a>
+            <a href="/hyzam-nazar-portfolio/Hyzam-Nazar-Resume.pdf" className="contact-btn" download>Download Resume <ArrowDownRight size={18} /></a>
           </div>
           <p className="contact-placeholder mono">Contact links are configured for publishing.</p>
         </section>
