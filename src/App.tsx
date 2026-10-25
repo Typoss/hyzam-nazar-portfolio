@@ -65,7 +65,135 @@ function SectionLabel({ number, children }: { number: string; children: React.Re
   )
 }
 
-function App() {
+
+type RiskRecord = {
+  id: string
+  title: string
+  category: string
+  owner: string
+  control: string
+  treatment: string
+  likelihood: number
+  impact: number
+  residualLikelihood: number
+  residualImpact: number
+}
+
+const starterRisks: RiskRecord[] = [
+  { id: 'R-01', title: 'Sensitive data exposed through misconfigured sharing', category: 'Data protection', owner: 'Data owner', control: 'Sharing restrictions, DLP rules and access reviews', treatment: 'Mitigate', likelihood: 4, impact: 5, residualLikelihood: 2, residualImpact: 4 },
+  { id: 'R-02', title: 'Privileged account compromise', category: 'Identity & access', owner: 'IT security', control: 'MFA, privileged access reviews and sign-in monitoring', treatment: 'Mitigate', likelihood: 3, impact: 5, residualLikelihood: 2, residualImpact: 3 },
+  { id: 'R-03', title: 'Critical patching falls behind schedule', category: 'Vulnerability management', owner: 'Infrastructure', control: 'Asset inventory, patch SLAs and exception tracking', treatment: 'Mitigate', likelihood: 4, impact: 4, residualLikelihood: 2, residualImpact: 3 },
+  { id: 'R-04', title: 'Third-party service outage affects operations', category: 'Third-party risk', owner: 'Service owner', control: 'Vendor due diligence, SLA review and continuity testing', treatment: 'Mitigate', likelihood: 3, impact: 4, residualLikelihood: 2, residualImpact: 3 },
+  { id: 'R-05', title: 'Security awareness gaps lead to phishing exposure', category: 'People & process', owner: 'HR / security', control: 'Awareness training and phishing simulations', treatment: 'Mitigate', likelihood: 4, impact: 3, residualLikelihood: 2, residualImpact: 2 },
+]
+
+function scoreBand(score: number) {
+  if (score >= 15) return 'critical'
+  if (score >= 10) return 'high'
+  if (score >= 5) return 'moderate'
+  return 'low'
+}
+
+function RiskPlayground() {
+  const [risks, setRisks] = useState<RiskRecord[]>(starterRisks)
+  const [showResidual, setShowResidual] = useState(false)
+  const [filter, setFilter] = useState('All')
+  const updateRisk = (id: string, field: keyof RiskRecord, value: string | number) => {
+    setRisks(current => current.map(risk => risk.id === id ? { ...risk, [field]: value } : risk))
+  }
+  const score = (likelihood: number, impact: number) => likelihood * impact
+  const visibleRisks = risks.filter(risk => filter === 'All' || scoreBand(score(risk.likelihood, risk.impact)) === filter.toLowerCase())
+  const total = risks.length
+  const critical = risks.filter(risk => score(risk.likelihood, risk.impact) >= 15).length
+  const average = Math.round(risks.reduce((sum, risk) => sum + score(risk.likelihood, risk.impact), 0) / total)
+  const labels = ['Rare', 'Unlikely', 'Possible', 'Likely', 'Almost certain']
+  const impactLabels = ['Negligible', 'Minor', 'Moderate', 'Major', 'Severe']
+  return (
+    <section id="risk-register" className="risk-playground section paper">
+      <SectionLabel number="07A">INTERACTIVE GRC PLAYGROUND</SectionLabel>
+      <div className="section-head playground-head">
+        <h2 className="display">MAKE RISK<br /><em>VISIBLE.</em></h2>
+        <div>
+          <p className="section-note">Explore a fictional risk register. Adjust likelihood and impact to see inherent scores and the risk distribution change. This is a learning demo, not an audit or assessment of a real organization.</p>
+          <div className="playground-actions">
+            <button className="playground-reset" onClick={() => { setRisks(starterRisks); setShowResidual(false); setFilter('All') }}>Reset example</button>
+            <button className="playground-toggle" onClick={() => setShowResidual(!showResidual)}>{showResidual ? 'Hide residual view −' : 'Compare residual risk +'}</button>
+          </div>
+        </div>
+      </div>
+      <div className="risk-kpis">
+        <article><span>EXAMPLE RISKS</span><strong>{total.toString().padStart(2, '0')}</strong><small>Fictional records</small></article>
+        <article><span>CRITICAL / INHERENT</span><strong>{critical.toString().padStart(2, '0')}</strong><small>Scores of 15–25</small></article>
+        <article><span>AVERAGE SCORE</span><strong>{average}<i>/25</i></strong><small>Likelihood × impact</small></article>
+      </div>
+      <div className="risk-matrix-layout">
+        <div className="risk-matrix-panel">
+          <div className="playground-subhead"><h3>INHERENT RISK MATRIX</h3><span>5 × 5 / LIKELIHOOD × IMPACT</span></div>
+          <div className="risk-matrix" role="img" aria-label="Risk heatmap showing the count of risks by likelihood and impact">
+            <div className="matrix-axis">LIKELIHOOD ↑</div>
+            {Array.from({ length: 5 }, (_, row) => {
+              const likelihood = 5 - row
+              return <div className="matrix-row" key={likelihood}>
+                <span className="matrix-y">{likelihood}</span>
+                {Array.from({ length: 5 }, (_, col) => {
+                  const impact = col + 1
+                  const count = risks.filter(risk => risk.likelihood === likelihood && risk.impact === impact).length
+                  return <div key={impact} className={`matrix-cell ${scoreBand(likelihood * impact)} ${count ? 'has-risk' : ''}`} title={`Likelihood ${likelihood}, impact ${impact}: ${count} risk(s)`}>
+                    {count || ''}
+                  </div>
+                })}
+              </div>
+            })}
+            <div className="matrix-x"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+            <div className="matrix-foot">IMPACT →</div>
+          </div>
+          <div className="risk-legend"><span><i className="low" />Low 1–4</span><span><i className="moderate" />Moderate 5–9</span><span><i className="high" />High 10–14</span><span><i className="critical" />Critical 15–25</span></div>
+        </div>
+        <div className="risk-method">
+          <span className="mono">SCORING METHOD</span>
+          <h3>Simple. Transparent. Repeatable.</h3>
+          <p>Inherent score = likelihood × impact, each rated from 1 to 5. Use the score as a prioritization aid, not a substitute for context or professional judgment.</p>
+          <div className="method-line"><span>01</span><div><b>Identify</b><small>Describe a plausible risk event.</small></div></div>
+          <div className="method-line"><span>02</span><div><b>Evaluate</b><small>Rate likelihood and business impact.</small></div></div>
+          <div className="method-line"><span>03</span><div><b>Treat & monitor</b><small>Assign ownership and track controls.</small></div></div>
+        </div>
+      </div>
+      <div className="register-toolbar">
+        <div><h3>RISK REGISTER</h3><p>Change the ratings inline; scores and heatmap update immediately.</p></div>
+        <label>Filter inherent risk
+          <select value={filter} onChange={event => setFilter(event.target.value)}>
+            {['All', 'Critical', 'High', 'Moderate', 'Low'].map(option => <option key={option} value={option}>{option}</option>)}
+          </select>
+        </label>
+      </div>
+      <div className="register-table-wrap">
+        <table className="register-table">
+          <thead><tr><th>ID / RISK</th><th>OWNER / CATEGORY</th><th>LIKELIHOOD</th><th>IMPACT</th><th>INHERENT</th><th>KEY CONTROL</th><th>TREATMENT</th>{showResidual && <><th>RESIDUAL L × I</th><th>RESIDUAL</th></>}</tr></thead>
+          <tbody>
+            {visibleRisks.map(risk => {
+              const inherent = score(risk.likelihood, risk.impact)
+              const residual = score(risk.residualLikelihood, risk.residualImpact)
+              return <tr key={risk.id}>
+                <td><b className="risk-id">{risk.id}</b><strong className="risk-name">{risk.title}</strong><small>{risk.category}</small></td>
+                <td><span className="risk-owner">{risk.owner}</span></td>
+                <td><label className="sr-only" htmlFor={`${risk.id}-likelihood`}>Likelihood for {risk.id}</label><select id={`${risk.id}-likelihood`} value={risk.likelihood} onChange={event => updateRisk(risk.id, 'likelihood', Number(event.target.value))}>{labels.map((label, i) => <option key={label} value={i + 1}>{i + 1} · {label}</option>)}</select></td>
+                <td><label className="sr-only" htmlFor={`${risk.id}-impact`}>Impact for {risk.id}</label><select id={`${risk.id}-impact`} value={risk.impact} onChange={event => updateRisk(risk.id, 'impact', Number(event.target.value))}>{impactLabels.map((label, i) => <option key={label} value={i + 1}>{i + 1} · {label}</option>)}</select></td>
+                <td><span className={`score-pill ${scoreBand(inherent)}`}>{inherent}<small>/25</small></span></td>
+                <td className="control-cell">{risk.control}</td>
+                <td><label className="sr-only" htmlFor={`${risk.id}-treatment`}>Treatment for {risk.id}</label><select id={`${risk.id}-treatment`} value={risk.treatment} onChange={event => updateRisk(risk.id, 'treatment', event.target.value)}>{['Mitigate', 'Avoid', 'Transfer', 'Accept'].map(option => <option key={option}>{option}</option>)}</select></td>
+                {showResidual && <><td><label className="sr-only" htmlFor={`${risk.id}-residual-likelihood`}>Residual likelihood for {risk.id}</label><select id={`${risk.id}-residual-likelihood`} value={risk.residualLikelihood} onChange={event => updateRisk(risk.id, 'residualLikelihood', Number(event.target.value))}>{labels.map((label, i) => <option key={label} value={i + 1}>{i + 1} · {label}</option>)}</select><label className="sr-only" htmlFor={`${risk.id}-residual-impact`}>Residual impact for {risk.id}</label><select id={`${risk.id}-residual-impact`} value={risk.residualImpact} onChange={event => updateRisk(risk.id, 'residualImpact', Number(event.target.value))}>{impactLabels.map((label, i) => <option key={label} value={i + 1}>{i + 1} · {label}</option>)}</select></td><td><span className={`score-pill ${scoreBand(residual)}`}>{residual}<small>/25</small></span></td></>}
+              </tr>
+            })}
+          </tbody>
+        </table>
+        {visibleRisks.length === 0 && <p className="empty-register">No risks in this band. Try another filter.</p>}
+      </div>
+      <p className="playground-disclaimer"><ShieldCheck size={16} /> DEMONSTRATION DATA ONLY · Scores are illustrative. Control effectiveness, risk appetite, impact scales and acceptance thresholds should be defined by each organization.</p>
+    </section>
+  )
+}
+
+\nfunction App() {
   const [dark, setDark] = useState(false)
   const [menu, setMenu] = useState(false)
 
@@ -86,7 +214,7 @@ function App() {
             ['experience', 'Experience'],
             ['work', 'Work'],
             ['capabilities', 'Capabilities'],
-            ['grc', 'GRC'],
+            ['grc', 'GRC'],\n            ['risk-register', 'Risk Lab'],
             ['journey', 'Journey'],
           ].map(([id, label]) => (
             <a key={id} href={`#${id}`} onClick={close}>{label}</a>
@@ -309,7 +437,7 @@ function App() {
           </div>
         </section>
 
-        <section id="grc" className="grc-section">
+        <RiskPlayground />\n\n        <section id="grc" className="grc-section">
           <div className="giant-num">07</div>
           <SectionLabel number="07">GRC / THE DIRECTION</SectionLabel>
           <div className="grc-layout">
