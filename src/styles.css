@@ -807,3 +807,126 @@ button, a {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+
+/* RiskForge case study: clearer reading hierarchy and responsive explanations */
+.riskforge-intro {
+  max-width: 850px;
+  margin: 0 auto 42px;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.riskforge-explain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.22);
+  margin: 0 0 24px;
+}
+.riskforge-explain-card {
+  padding: clamp(20px, 3vw, 34px);
+  background: rgba(18,18,18,.12);
+}
+.riskforge-explain-card .mono,
+.riskforge-risk-types .mono,
+.riskforge-how .mono,
+.riskforge-architecture .mono,
+.riskforge-stack > .mono {
+  display: block;
+  margin-bottom: 16px;
+  color: inherit;
+  opacity: .75;
+}
+.riskforge-explain-card h3 {
+  font: 600 clamp(1.3rem, 2.4vw, 2rem)/1.08 var(--display);
+  letter-spacing: -.04em;
+  margin: 0 0 14px;
+}
+.riskforge-explain-card p,
+.riskforge-risk-types p,
+.riskforge-how-heading p,
+.riskforge-step p,
+.riskforge-component p,
+.riskforge-note {
+  font-size: .95rem;
+  line-height: 1.7;
+  margin: 0;
+  opacity: .86;
+}
+.riskforge-risk-types {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0 0 68px;
+}
+.riskforge-risk-types > div {
+  border-top: 1px solid rgba(255,255,255,.4);
+  padding-top: 24px;
+}
+.riskforge-risk-types h3 {
+  font: 600 clamp(1.25rem, 2.3vw, 1.9rem)/1.2 var(--display);
+  margin: 0 0 12px;
+}
+.riskforge-how {
+  display: grid;
+  grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 6vw, 80px);
+  padding: clamp(24px, 5vw, 56px) 0;
+  border-top: 1px solid rgba(255,255,255,.28);
+  border-bottom: 1px solid rgba(255,255,255,.28);
+}
+.riskforge-how-heading h3,
+.riskforge-architecture > div:first-child h3 {
+  font: 600 clamp(1.8rem, 3.5vw, 3.2rem)/1.03 var(--display);
+  letter-spacing: -.05em;
+  margin: 0 0 16px;
+}
+.riskforge-steps { display: grid; gap: 0; }
+.riskforge-step {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+.riskforge-step:first-child { padding-top: 0; }
+.riskforge-step:last-child { border-bottom: 0; padding-bottom: 0; }
+.riskforge-step > span {
+  font: 500 .75rem var(--mono);
+  opacity: .7;
+  padding-top: 4px;
+}
+.riskforge-step h4 {
+  font: 600 1.15rem/1.2 var(--display);
+  margin: 0 0 8px;
+}
+.riskforge-architecture {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.22);
+  margin-top: 54px;
+}
+.riskforge-architecture > div { background: rgba(18,18,18,.12); padding: 22px; }
+.riskforge-architecture > div:first-child { grid-column: 1 / -1; }
+.riskforge-component b { display: block; font: 600 1rem/1.3 var(--display); margin-bottom: 10px; }
+.riskforge-component p { font-size: .85rem; }
+.riskforge-stack { margin-top: 42px; }
+.riskforge-stack .tech-strip { margin-top: 0; }
+.riskforge-note { margin-top: 20px; max-width: 900px; font-size: .82rem; }
+@media (max-width: 800px) {
+  .riskforge-explain-grid { grid-template-columns: 1fr; }
+  .riskforge-risk-types { grid-template-columns: 1fr; gap: 28px; margin-bottom: 42px; }
+  .riskforge-how { grid-template-columns: 1fr; gap: 28px; }
+  .riskforge-architecture { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .riskforge-intro { font-size: 1.05rem; margin-bottom: 28px; }
+  .riskforge-explain-card { padding: 20px 16px; }
+  .riskforge-architecture { grid-template-columns: 1fr; }
+  .riskforge-architecture > div:first-child { grid-column: auto; }
+  .riskforge-step { grid-template-columns: 30px minmax(0, 1fr); gap: 12px; }
+}
