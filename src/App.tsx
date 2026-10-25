@@ -193,7 +193,8 @@ function RiskPlayground() {
   )
 }
 
-\nfunction App() {
+
+function App() {
   const [dark, setDark] = useState(false)
   const [menu, setMenu] = useState(false)
 
@@ -214,7 +215,8 @@ function RiskPlayground() {
             ['experience', 'Experience'],
             ['work', 'Work'],
             ['capabilities', 'Capabilities'],
-            ['grc', 'GRC'],\n            ['risk-register', 'Risk Lab'],
+            ['grc', 'GRC'],
+            ['risk-register', 'Risk Lab'],
             ['journey', 'Journey'],
           ].map(([id, label]) => (
             <a key={id} href={`#${id}`} onClick={close}>{label}</a>
@@ -437,7 +439,9 @@ function RiskPlayground() {
           </div>
         </section>
 
-        <RiskPlayground />\n\n        <section id="grc" className="grc-section">
+        <RiskPlayground />
+
+        <section id="grc" className="grc-section">
           <div className="giant-num">07</div>
           <SectionLabel number="07">GRC / THE DIRECTION</SectionLabel>
           <div className="grc-layout">
