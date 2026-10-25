@@ -390,41 +390,82 @@ function App() {
         <section id="riskforge" className="case-study red-section">
           <SectionLabel number="05">RISKFORGE / CASE STUDY</SectionLabel>
           <div className="case-title">
-            <h2>FORGING<br /><em>CLARITY</em><br />FROM RISK.</h2>
+            <h2>RISK, MADE<br /><em>EASIER TO</em><br />UNDERSTAND.</h2>
             <div className="case-meta">
-              <p>DATA-DRIVEN RISK INTELLIGENCE PLATFORM</p>
-              <p>FINANCE × CYBER × ANALYTICS</p>
+              <p>A RISK INTELLIGENCE PROJECT</p>
+              <p>FINANCE × CYBERSECURITY × DATA</p>
             </div>
           </div>
 
-          <div className="risk-grid">
-            <div className="risk-card large">
-              <span className="mono">THE PROBLEM</span>
-              <h3>Complex risk needs a common language.</h3>
-              <p>Financial, cyber, compliance and operational signals can become fragmented. RiskForge brings those signals into a centralized intelligence interface.</p>
-            </div>
-            <div className="risk-card">
+          <p className="riskforge-intro">RiskForge is a project concept for helping an organization see its important risks in one place. Instead of keeping risk information scattered across spreadsheets and separate tools, the idea is to bring it together so teams can understand what might go wrong, how serious it could be, and what to do next.</p>
+
+          <div className="riskforge-explain-grid">
+            <article className="riskforge-explain-card">
+              <span className="mono">01 / THE PROBLEM</span>
+              <h3>Risk information gets scattered.</h3>
+              <p>A finance team may track credit risk in one place, while IT tracks vulnerabilities and compliance teams track control gaps elsewhere. That makes it harder to see the bigger picture.</p>
+            </article>
+            <article className="riskforge-explain-card">
+              <span className="mono">02 / THE IDEA</span>
+              <h3>Bring the picture together.</h3>
+              <p>RiskForge is designed to give teams a shared view of risks, scores, trends and alerts, helping them compare issues and decide what needs attention first.</p>
+            </article>
+            <article className="riskforge-explain-card">
+              <span className="mono">03 / THE OUTCOME</span>
+              <h3>Make the next step clearer.</h3>
+              <p>Each risk can be assessed, prioritized and connected to controls or treatment actions. The goal is better-informed decisions—not a promise that risk can be eliminated.</p>
+            </article>
+          </div>
+
+          <div className="riskforge-risk-types">
+            <div>
               <span className="mono">FINANCIAL RISK</span>
-              <h3>CREDIT<br />MARKET<br />LIQUIDITY</h3>
+              <h3>Credit · Market · Liquidity</h3>
+              <p>Examples include borrowers failing to repay, market prices changing, or an organization not having enough cash available when needed.</p>
             </div>
-            <div className="risk-card">
-              <span className="mono">CYBER / IT RISK</span>
-              <h3>VULNERABILITIES<br />THREATS<br />COMPLIANCE</h3>
+            <div>
+              <span className="mono">CYBERSECURITY & IT RISK</span>
+              <h3>Access · Vulnerabilities · Compliance</h3>
+              <p>Examples include an account being compromised, a critical patch being delayed, or a required security control not being met.</p>
             </div>
           </div>
 
-          <div className="architecture">
-            {['USER', 'AUTH + MFA', 'FRONTEND', 'API', 'BUSINESS LOGIC', 'RISK ENGINE', 'POSTGRESQL', 'ANALYTICS'].map((x, i) => (
-              <div className="arch-node" key={x}>
-                <span>{String(i + 1).padStart(2, '0')}</span>
-                <b>{x}</b>
-                {i < 7 && <ArrowDownRight />}
-              </div>
-            ))}
+          <div className="riskforge-how">
+            <div className="riskforge-how-heading">
+              <span className="mono">HOW IT IS INTENDED TO WORK</span>
+              <h3>From risk information to a decision.</h3>
+              <p>This is the planned flow, explained in plain language.</p>
+            </div>
+            <div className="riskforge-steps">
+              {[
+                ['01', 'Sign in securely', 'Authentication, with multi-factor authentication (MFA) as an extra check.'],
+                ['02', 'Record the risk', 'Describe what could happen and which business activity or asset could be affected.'],
+                ['03', 'Assess priority', 'Use likelihood and impact to help estimate how urgently the risk needs attention.'],
+                ['04', 'Review the picture', 'Use dashboards, charts and alerts to spot high-priority issues and changes.'],
+                ['05', 'Plan a response', 'Track controls and treatment actions so the team can work toward reducing exposure.'],
+              ].map(([number, title, description]) => (
+                <article className="riskforge-step" key={number}>
+                  <span>{number}</span>
+                  <div><h4>{title}</h4><p>{description}</p></div>
+                </article>
+              ))}
+            </div>
           </div>
 
-          <div className="tech-strip">
-            {['React', 'Vite', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'Prisma', 'JWT', 'MFA', 'Docker'].map(x => <span key={x}>{x}</span>)}
+          <div className="riskforge-architecture">
+            <div><span className="mono">THE MAIN PARTS</span><h3>What sits behind the interface?</h3></div>
+            <div className="riskforge-component"><b>Frontend</b><p>The screens people use to review and update risk information.</p></div>
+            <div className="riskforge-component"><b>API & business logic</b><p>The layer that receives requests and applies the application's rules.</p></div>
+            <div className="riskforge-component"><b>Risk engine & analytics</b><p>The logic for calculating scores and presenting useful summaries.</p></div>
+            <div className="riskforge-component"><b>Database</b><p>Stores risk records and related application data.</p></div>
+          </div>
+
+          <div className="riskforge-stack">
+            <span className="mono">PLANNED / PROJECT TECHNOLOGY STACK</span>
+            <div className="tech-strip">
+              {['React', 'Vite', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'Prisma', 'JWT', 'MFA', 'Docker'].map(x => <span key={x}>{x}</span>)}
+            </div>
+            <p className="riskforge-note">This case study describes the project’s intended design and learning goals. Individual capabilities should be considered implemented only where they are present in the working code; this page is not a claim that RiskForge is deployed in a production finance environment.</p>
           </div>
         </section>
 
@@ -501,7 +542,7 @@ function App() {
           </div>
 
           <div className="certs">
-            <div><span className="mono">CERTIFICATION / CURRENT</span><h3>COMPTIA SECURITY+</h3><p>Preparation track — status intentionally not represented as completed.</p></div>
+            <div><span className="mono">CERTIFICATION / CURRENT</span><h3>COMPTIA SECURITY+</h3><p>Earned certification · Valid through 21 August 2029.</p></div>
             <div><span className="mono">ROADMAP / AREAS OF INTEREST</span><h3>CISA · CRISC · GRC · LEAD AUDITOR</h3><p>Planned / developing interests. Not presented as completed credentials.</p></div>
           </div>
         </section>
