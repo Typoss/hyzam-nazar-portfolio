@@ -1,6 +1,17 @@
 # Hyzam Nazar — Portfolio
 
-Editorial cybersecurity portfolio built with React + Vite + TypeScript.
+A responsive, editorial-style portfolio built with React, TypeScript, Vite, Motion and Lucide icons.
+
+**Live site:** https://typoss.github.io/hyzam-nazar-portfolio/
+
+## Highlights
+
+- Cybersecurity, security operations, risk and GRC profile
+- Project summaries for RiskForge, AshaPlus and KAVACH
+- Interactive GRC risk register with illustrative likelihood × impact scoring
+- Inherent-risk heatmap, severity filters and optional residual-risk comparison
+- Responsive layout and light/dark theme
+- GitHub Pages deployment through GitHub Actions
 
 ## Run locally
 
@@ -9,36 +20,29 @@ npm install
 npm run dev
 ```
 
-Open the local URL shown by Vite.
-
-## Build
+## Production build
 
 ```bash
 npm run build
+npm run preview
 ```
 
-## Before publishing
+## Deployment
 
-1. Replace the placeholder GitHub URL in `src/App.tsx`.
-2. Replace the placeholder LinkedIn URL in `src/App.tsx`.
-3. Replace the placeholder email address in `src/App.tsx`.
-4. Add a professional portrait if desired.
-5. Add the real PDF resume when available.
+Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` to GitHub Pages.
 
-## Design
+Check the [GitHub Actions history](https://github.com/Typoss/hyzam-nazar-portfolio/actions) for the latest build and deployment status.
 
-The visual system is inspired by the supplied editorial reference:
-- eggshell paper
-- brick red
-- black/white imagery
-- oversized typography
-- asymmetrical editorial layouts
-- numbered sections
-- technical diagrams
-- restrained motion
+## Content accuracy and demo boundaries
 
-The reference is used as visual inspiration; its artwork, wording and branding are not copied.
+- The risk register uses fictional example records. Its scoring is illustrative and is not a formal risk assessment or audit.
+- RiskForge is presented as a project; describe individual capabilities as implemented only when they are implemented in the project itself.
+- AshaPlus and KAVACH are described as concepts.
+- Security+ is a preparation track; planned credentials must not be presented as earned.
+- The internship description is limited to the stated team and exposure areas.
 
-## Content accuracy
+## Before applying
 
-The portfolio deliberately avoids claiming unverified certifications, senior roles, professional framework implementations, or purchased lab hardware.
+- Keep `public/Hyzam-Nazar-Resume.pdf` up to date.
+- Add project-specific repository/demo links once the correct public URLs are confirmed.
+- Test the live site at mobile widths and with keyboard navigation after significant UI changes.
