@@ -787,3 +787,23 @@ button, a {
   .register-toolbar select { width: 100%; }
   .playground-disclaimer { font-size: .55rem; }
 }
+
+
+/* Keyboard accessibility refinements */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  transform: translateY(-160%);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 16px;
+  border: 2px solid var(--red);
+  font: 600 .75rem var(--mono);
+}
+.skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
