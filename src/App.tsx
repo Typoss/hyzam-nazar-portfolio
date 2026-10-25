@@ -167,7 +167,7 @@ function RiskPlayground() {
         </label>
       </div>
       <div className="register-table-wrap">
-        <table className="register-table">
+        <table className="register-table"><caption className="sr-only">Fictional cybersecurity risk register with editable ratings and treatment options</caption>
           <thead><tr><th>ID / RISK</th><th>OWNER / CATEGORY</th><th>LIKELIHOOD</th><th>IMPACT</th><th>INHERENT</th><th>KEY CONTROL</th><th>TREATMENT</th>{showResidual && <><th>RESIDUAL L × I</th><th>RESIDUAL</th></>}</tr></thead>
           <tbody>
             {visibleRisks.map(risk => {
@@ -206,10 +206,11 @@ function App() {
 
   return (
     <div className="site">
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <header className="nav">
         <a href="#home" className="brand" onClick={close}>HN<span>.</span></a>
 
-        <nav className={menu ? 'nav-links open' : 'nav-links'}>
+        <nav id="primary-navigation" aria-label="Primary navigation" className={menu ? 'nav-links open' : 'nav-links'}>
           {[
             ['about', 'About'],
             ['experience', 'Experience'],
@@ -225,17 +226,17 @@ function App() {
         </nav>
 
         <div className="nav-actions">
-          <button className="icon-btn" aria-label="Toggle theme" onClick={() => setDark(!dark)}>
+          <button type="button" className="icon-btn" aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} aria-pressed={dark} onClick={() => setDark(!dark)}>
             {dark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a className="resume-btn" href="/hyzam-nazar-portfolio/Hyzam-Nazar-Resume.pdf" target="_blank" rel="noreferrer">Resume ↗</a>
-          <button className="menu-btn" aria-label="Toggle menu" onClick={() => setMenu(!menu)}>
+          <button type="button" className="menu-btn" aria-label={menu ? 'Close navigation menu' : 'Open navigation menu'} aria-controls="primary-navigation" aria-expanded={menu} onClick={() => setMenu(!menu)}>
             {menu ? <X /> : <Menu />}
           </button>
         </div>
       </header>
 
-      <main>
+      <main id="main-content">
         <section id="home" className="hero">
           <div className="hero-top">
             <p className="eyebrow">CYBERSECURITY / RISK / GRC / DATA</p>
@@ -529,7 +530,7 @@ function App() {
             <a href="/hyzam-nazar-portfolio/Hyzam-Nazar-Resume.pdf" className="contact-btn" target="_blank" rel="noreferrer">View Resume <ExternalLink size={18} /></a>
             <a href="/hyzam-nazar-portfolio/Hyzam-Nazar-Resume.pdf" className="contact-btn" download>Download Resume <ArrowDownRight size={18} /></a>
           </div>
-          <p className="contact-placeholder mono">Contact links are configured for publishing.</p>
+          
         </section>
       </main>
 
